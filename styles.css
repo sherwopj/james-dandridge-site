@@ -141,7 +141,6 @@ h2 {
 .hero-text,
 .section-intro p,
 .about-copy p,
-.story-content p,
 .contact-card p,
 .about-section p {
   max-width: 56rem;
@@ -184,7 +183,8 @@ h2 {
   top: 6rem;
 }
 
-.hero-figure img {
+.hero-figure img,
+.about-image img {
   width: 100%;
   height: auto;
   border-radius: var(--radius);
@@ -192,7 +192,39 @@ h2 {
   box-shadow: var(--shadow);
 }
 
-.story-section,
+.synopsis-frame {
+  position: relative;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 244, 217, 0.08);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.synopsis-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.synopsis-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 12, 8, 0.55) 0%, rgba(15, 12, 8, 0.4) 35%, rgba(15, 12, 8, 0.55) 100%);
+  z-index: 1;
+}
+
+.synopsis-copy {
+  position: relative;
+  z-index: 2;
+  padding: 3rem 2.5rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.synopsis-section,
+.excerpt-section,
 .about-section,
 .contact-section,
 .about-contact-panel {
@@ -203,7 +235,12 @@ h2 {
   margin-bottom: 2rem;
 }
 
-.story-content {
+.comp-titles {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.excerpt-content {
   background: rgba(20, 15, 9, 0.82);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -211,18 +248,39 @@ h2 {
   box-shadow: var(--shadow);
 }
 
-.story-content p {
+.excerpt-content p {
   margin: 0 0 1.75rem;
   font-size: 1.05rem;
   letter-spacing: -0.01em;
 }
 
-.story-content .section-divider {
+.excerpt-content .section-divider {
   margin: 2rem auto;
   width: 3rem;
   color: var(--accent);
   text-align: center;
   font-size: 1.1rem;
+}
+
+.excerpt-figure {
+  margin: 2.25rem 0;
+  display: block;
+}
+
+.excerpt-figure img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 244, 217, 0.1);
+  box-shadow: var(--shadow);
+}
+
+.excerpt-figure figcaption {
+  margin-top: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-style: italic;
+  text-align: center;
 }
 
 .contact-section {
@@ -290,11 +348,6 @@ h2 {
   align-items: center;
 }
 
-.about-image img {
-  border-radius: var(--radius);
-  border: 1px solid rgba(255, 244, 217, 0.08);
-}
-
 .about-contact-panel {
   background: rgba(29, 24, 16, 0.95);
   border: 1px solid var(--border);
@@ -337,9 +390,10 @@ h2 {
     padding: 1.5rem 1rem 3rem;
   }
 
-  .story-content,
+  .excerpt-content,
   .contact-card,
-  .about-contact-panel {
+  .about-contact-panel,
+  .synopsis-copy {
     padding: 1.5rem;
   }
 }
