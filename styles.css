@@ -183,6 +183,11 @@ h2 {
   top: 6rem;
 }
 
+.img-link {
+  display: block;
+  cursor: zoom-in;
+}
+
 .hero-figure img,
 .about-image img {
   width: 100%;

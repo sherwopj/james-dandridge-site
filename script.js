@@ -29,6 +29,13 @@ function renderExcerpt(text, container) {
       const figure = document.createElement('figure');
       figure.className = 'excerpt-figure';
 
+      const link = document.createElement('a');
+      link.href = src;
+      link.className = 'img-link';
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.setAttribute('aria-label', 'View full-size image');
+
       const img = document.createElement('img');
       img.src = src;
       img.alt = caption;
@@ -37,7 +44,8 @@ function renderExcerpt(text, container) {
       const figcaption = document.createElement('figcaption');
       figcaption.textContent = caption;
 
-      figure.appendChild(img);
+      link.appendChild(img);
+      figure.appendChild(link);
       figure.appendChild(figcaption);
       container.appendChild(figure);
       return;
