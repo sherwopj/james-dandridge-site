@@ -342,6 +342,30 @@ h2 {
   font-size: 0.95rem;
 }
 
+.contact-card .hidden-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+}
+
+.contact-status {
+  margin: 0;
+  min-height: 1.3em;
+  font-size: 0.95rem;
+}
+
+.contact-status.success {
+  color: #8fc98f;
+}
+
+.contact-status.error {
+  color: #e08a8a;
+}
+
 .about-section {
   display: grid;
   gap: 1.5rem;

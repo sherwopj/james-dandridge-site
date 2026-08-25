@@ -95,8 +95,12 @@
     <section id="contact" class="contact-section">
       <div class="contact-card">
         <h2>Follow the book</h2>
-        <p>James is preparing Uncle Jimmy's Unified Universal Theory of Everything for publication and would love to hear from readers, reviewers, and literary agents. Send a message below and it will open in your email client.</p>
+        <p>James is preparing Uncle Jimmy's Unified Universal Theory of Everything for publication and would love to hear from readers, reviewers, and literary agents. Send a message below and it will be delivered directly.</p>
         <form id="contact-form">
+          <input type="hidden" name="access_key" value="bb0e8095-3ba9-4c50-ae91-dd6e09634f17">
+          <input type="hidden" name="subject" value="New message from jamesdandridge.co.uk">
+          <input type="checkbox" name="botcheck" class="hidden-field" tabindex="-1" autocomplete="off">
+
           <label for="name">Name</label>
           <input id="name" name="name" type="text" required placeholder="Your name">
 
@@ -107,8 +111,9 @@
           <textarea id="message" name="message" rows="6" required placeholder="Write your message here"></textarea>
 
           <button type="submit">Send message</button>
+          <p id="contact-status" class="contact-status" role="status" aria-live="polite"></p>
         </form>
-        <p class="contact-note">This is a static site. The form opens your email client so the message is delivered securely.</p>
+        <p class="contact-note">This is a static site. Messages are delivered directly to James — no need to open your own email client.</p>
       </div>
     </section>
   </main>

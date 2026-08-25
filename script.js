@@ -1,9 +1,3 @@
-const emailCharCodes = [98, 114, 101, 116, 116, 46, 116, 119, 111, 102, 105, 110, 103, 101, 114, 115, 46, 106, 97, 99, 111, 98, 115, 64, 103, 109, 97, 105, 108, 46, 99, 111, 109];
-
-function decodeEmail() {
-  return String.fromCharCode(...emailCharCodes);
-}
-
 const imageMarkerPattern = /^\[\[image:\s*([^|]+?)\s*\|\s*(.+?)\s*\]\]$/i;
 
 function renderExcerpt(text, container) {
@@ -82,15 +76,53 @@ loadExcerpt('excerpt-2.txt', 'excerpt-2-content');
 loadExcerpt('excerpt-3.txt', 'excerpt-3-content');
 
 const contactForm = document.getElementById('contact-form');
+const contactStatus = document.getElementById('contact-status');
+
 if (contactForm) {
   contactForm.addEventListener('submit', event => {
     event.preventDefault();
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const message = document.getElementById('message').value.trim();
-    const recipient = decodeEmail();
-    const subject = encodeURIComponent(`Website message from ${name}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-    window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+
+    // Honeypot: if this hidden field got filled in, silently drop the submission.
+    if (contactForm.botcheck && contactForm.botcheck.checked) {
+      return;
+    }
+
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const payload = Object.fromEntries(new FormData(contactForm).entries());
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending…';
+    if (contactStatus) {
+      contactStatus.textContent = '';
+      contactStatus.className = 'contact-status';
+    }
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (!data.success) {
+          throw new Error(data.message || 'Submission failed');
+        }
+        contactForm.reset();
+        if (contactStatus) {
+          contactStatus.textContent = 'Thank you — your message has been sent.';
+          contactStatus.classList.add('success');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        if (contactStatus) {
+          contactStatus.textContent = 'Sorry, something went wrong sending your message. Please try again shortly.';
+          contactStatus.classList.add('error');
+        }
+      })
+      .finally(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Send message';
+      });
   });
 }
